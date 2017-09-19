@@ -7,16 +7,40 @@ clear all;
 clc;
 close all;
 
-exampleID=5;
+if(exist('Figures')==0)
+    mkdir('Figures')
+end
+
 % for experimental_data choose 1, for experimental_data_crossflowplane choose 2
-for itDW = [35,40:10:90]
-    
-    close all;
-    
-    experimental_data_deltaWing_all;
-    exampleName=['DELTAW_',num2str(itDW)];
+exampleID=5; 
+
+% create figure names according to the chosen data set
+if exampleID==1
+    experimental_data;
+    exampleName='Figures/SIDE';
+    epsilon=1.0;
+    beta=1.0;
+elseif exampleID==2
+    experimental_data_crossflowplane;
+    exampleName='Figures/CROSS';
     epsilon=1.0;
     beta=1.8;
+elseif exampleID==3
+    experimental_data_2;
+    exampleName='Figures/SIDE_2_';
+    epsilon=2.0;
+    beta=0.5;
+elseif exampleID==4
+    experimental_data_crossflowplane_2;
+    exampleName='Figures/CROSS_2_';
+    epsilon=3.0;
+    beta=0.5;
+elseif exampleID==5
+    experimental_data_deltaWing;
+    exampleName='Figures/DELTAW';
+    epsilon=1.0;
+    beta=0.1;
+end
 
 MyFontSize=14;
 
@@ -35,7 +59,7 @@ plot(evals, '*')
 xlabel('index')
 ylabel('Eigenvalue')
 set(gca, 'FontSize', MyFontSize)
-%print([exampleName,'eigenvalue'],'-depsc')
+print([exampleName,'eigenvalue'],'-depsc')
 
 
 %%
@@ -79,7 +103,7 @@ if(exampleID==1 || exampleID==3)
     ylim([Y(1) Y(end)])
 
 end
-%print([exampleName,'ev_2to5'],'-depsc')
+print([exampleName,'ev_2to5'],'-depsc')
 
 
 figure(32)
@@ -119,7 +143,7 @@ if(exampleID==1 || exampleID==3)
     ylim([Y(1) Y(end)])
 
 end
-%print([exampleName,'ev_6to9'],'-depsc')
+print([exampleName,'ev_6to9'],'-depsc')
 
 
 figure(33)
@@ -159,7 +183,7 @@ if(exampleID==1 || exampleID==3)
     ylim([Y(1) Y(end)])
 
 end
-%print([exampleName,'ev_10to13'],'-depsc')
+print([exampleName,'ev_10to13'],'-depsc')
 
 %%
 % plot chosen eigenvectors
@@ -232,7 +256,7 @@ title(['EV ', num2str(ievidx(4))])
 xlabel('X')
 ylabel('Y')
 
-%print([exampleName,'chosen_ev'],'-depsc')
+print([exampleName,'chosen_ev'],'-depsc')
 
 %%
 % cluster data using kmeans with respect to the selected eigenvectors
@@ -256,10 +280,9 @@ elseif (exampleID ==4)
    IDX = kmeans(horzcat(real(evec(:,2))),2,'replicates',100);
 elseif(exampleID==5)
     
-  %  IDX = kmeans(horzcat(real(evec(:,ievidx(1))),real(evec(:,ievidx(2))), real(evec(:,ievidx(3))),real(evec(:,ievidx(4)))),5,'replicates',100);
+  %  IDX = kmeans(horzcat(real(evec(:,ievidx(1))),real(evec(:,ievidx(2))), real(evec(:,ievidx(3))),real(evec(:,ievidx(4)))),15,'replicates',100);
   
-       IDX = kmeans(horzcat(real(evec(:,ievidx(1))),real(evec(:,ievidx(2))), real(evec(:,ievidx(3)))),6,'replicates',100);
-    %  IDX = kmeans(horzcat(real(evec(:,2:10))),10,'replicates',100);
+       IDX = kmeans(horzcat(real(evec(:,ievidx(1))),real(evec(:,ievidx(2)))),8,'replicates',100);
   
    
 end
@@ -270,12 +293,11 @@ figure(41)
 hold on
 set(gca, 'FontSize', MyFontSize)
 scatter(data(:,1), data(:,2), 40, IDX, 'filled')
-xlabel('Y')
-ylabel('Z')
+xlabel('X')
+ylabel('Y')
 %title(['K-means clustering ']);
 hold on
 streamslice(Xres, Yres, Ures,Vres)
-
 hold on
 if(exampleID==1 || exampleID==3)
     pl=patch(geometry,'FaceColor', [0.5,0.5,0.5], 'EdgeColor',[0.5,0.5,0.5],'faceAlpha',1,'HandleVisibility','off');
@@ -285,14 +307,6 @@ if(exampleID==1 || exampleID==3)
 end
 
 print([exampleName,'vortex_clustered'],'-depsc')
-
-figure(441)
-scatter(X, Y, 40, vorticity)
-print([exampleName,'vorticity'],'-depsc')
-
-
-
-end
 
 %%
 % % plot histogram that will show the distribution of the data w.r.t the
@@ -334,4 +348,4 @@ if(exampleID==1 || exampleID==3)
 
 end
 
-%print([exampleName, 'EV2'],'-depsc')
+print([exampleName, 'EV2'],'-depsc')

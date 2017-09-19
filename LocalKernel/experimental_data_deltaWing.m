@@ -4,7 +4,7 @@ cd ..
 cd('delta_wing_dlr_tc4')
 importdata('piv80_rleM04R3A13.plt');
 cd ..
-cd('src')
+cd('GeneralizedDiffusionMap')
 %%
 % read the description in ans.textdata
 dataall=ans.data;
@@ -58,4 +58,6 @@ figure(2)
 streamslice(Xres, Yres, Ures,Vres)
 set(gca, 'FontSize', 14)
 
-print('DELATWstreamplot','-depsc')
+if(exist('Figures')~=0)
+print('Figures/DELATWstreamplot','-depsc')
+end
