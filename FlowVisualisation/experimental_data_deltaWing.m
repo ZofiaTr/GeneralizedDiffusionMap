@@ -1,10 +1,10 @@
 %% load data from http://vfe2.dlr.de
 
-cd ..
+
 cd('delta_wing_dlr_tc4')
 importdata('piv90_rleM04R3A13.plt');
 cd ..
-cd('FlowVisualisation')
+%cd('FlowVisualisation')
 %%
 % read the description in ans.textdata
 dataall=ans.data;

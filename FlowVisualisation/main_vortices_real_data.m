@@ -39,7 +39,7 @@ elseif exampleID==5
     experimental_data_deltaWing;
     exampleName='Figures/DELTAW';
     epsilon=1.0;
-    beta=1.8;
+    beta=1;%1.8;
 end
 
 MyFontSize=14;
@@ -201,15 +201,23 @@ elseif (exampleID==3)
 elseif (exampleID==4)
     ievidx=[2 3 4 5];
 elseif (exampleID==5)
-    ievidx=[2 3 4 5];
+    ievidx=[2 3 4 5 6];
 end
 
 %%
+
+strslColor='k';
+strSlWDTH=0.1;
+nrSlWDTH=0.3;
+
 
 figure(50)
 subplot(221)
 hold on
 scatter(data(:,1), data(:,2), 5, evec(:,ievidx(1)))
+hold on
+hlines =streamslice(Xres, Yres, Ures,Vres, nrSlWDTH);
+set(hlines,'LineWidth',strSlWDTH,'Color',strslColor)
 hold on
 if(exampleID==1 || exampleID==3)
     pl=patch(geometry,'FaceColor', [0.5,0.5,0.5], 'EdgeColor',[0.5,0.5,0.5],'faceAlpha',1,'HandleVisibility','off');
@@ -224,6 +232,8 @@ ylabel('Y')
 subplot(222)
 scatter(data(:,1), data(:,2), 5, evec(:,ievidx(2)))
 hold on
+hlines =streamslice(Xres, Yres, Ures,Vres, nrSlWDTH);
+set(hlines,'LineWidth',strSlWDTH,'Color',strslColor)
 if(exampleID==1 || exampleID==3)
     pl=patch(geometry,'FaceColor', [0.5,0.5,0.5], 'EdgeColor',[0.5,0.5,0.5],'faceAlpha',1,'HandleVisibility','off');
     xlim([X(1) X(end)])
@@ -236,6 +246,9 @@ ylabel('Y')
 
 subplot(223)
 scatter(data(:,1), data(:,2), 5, evec(:,ievidx(3)))
+hold on
+hlines =streamslice(Xres, Yres, Ures,Vres, nrSlWDTH);
+set(hlines,'LineWidth',strSlWDTH,'Color',strslColor)
 if(exampleID==1 || exampleID==3)
     pl=patch(geometry,'FaceColor', [0.5,0.5,0.5], 'EdgeColor',[0.5,0.5,0.5],'faceAlpha',1,'HandleVisibility','off');
     xlim([X(1) X(end)])
@@ -246,9 +259,12 @@ title(['EV ', num2str(ievidx(3))])
 xlabel('X')
 ylabel('Y')
 
+
 subplot(224)
 scatter(data(:,1), data(:,2), 5, evec(:,ievidx(4)))
-
+hold on
+hlines =streamslice(Xres, Yres, Ures,Vres, nrSlWDTH);
+set(hlines,'LineWidth',strSlWDTH,'Color',strslColor)
 hold on
 if(exampleID==1 || exampleID==3)
     pl=patch(geometry,'FaceColor', [0.5,0.5,0.5], 'EdgeColor',[0.5,0.5,0.5],'faceAlpha',1,'HandleVisibility','off');
@@ -284,7 +300,7 @@ elseif (exampleID ==4)
    IDX = kmeans(horzcat(real(evec(:,2))),2,'replicates',100);
 elseif(exampleID==5)
     
-    IDX = kmeans(horzcat(real(evec(:,ievidx(1))),real(evec(:,ievidx(2))), real(evec(:,ievidx(3))),real(evec(:,ievidx(4)))),12,'replicates',100);
+    IDX = kmeans(horzcat(real(evec(:,ievidx(1))),real(evec(:,ievidx(2))), real(evec(:,ievidx(3))),real(evec(:,ievidx(4)))),15,'replicates',100);
   
   %     IDX = kmeans(horzcat(real(evec(:,ievidx(1))),real(evec(:,ievidx(2)))),8,'replicates',100);
   
@@ -293,16 +309,26 @@ end
 
 %%
 % plot clustering
+
+
+strslColor='k';
+strSlWDTH=0.5;
+nrSlWDTH=1;
+
+
 figure(41)
 hold on
 set(gca, 'FontSize', MyFontSize)
-scatter(data(:,1), data(:,2), 40, IDX, 'filled')
+%scatter(data(:,1), data(:,2), 8, IDX, 'filled')
+h=pcolor(Xres, Yres, reshape(IDX, xlen, ylen)');%, 'Interpolation', 'None')%, 'interpolation', 'off')
+set(h, 'EdgeColor', 'none')
+%contourf(Xres, Yres, reshape(IDX, xlen, ylen)',50,'Linestyle','None')
 xlabel('X')
 ylabel('Y')
 %title(['K-means clustering ']);
 hold on
-streamslice(Xres, Yres, Ures,Vres)
-hold on
+hlines =streamslice(Xres, Yres, Ures,Vres, nrSlWDTH);
+set(hlines,'LineWidth',strSlWDTH,'Color',strslColor)
 if(exampleID==1 || exampleID==3)
     pl=patch(geometry,'FaceColor', [0.5,0.5,0.5], 'EdgeColor',[0.5,0.5,0.5],'faceAlpha',1,'HandleVisibility','off');
     xlim([X(1) X(end)])
@@ -353,3 +379,37 @@ if(exampleID==1 || exampleID==3)
 end
 
 print([exampleName, 'EV2'],'-depsc')
+
+%%
+
+strslColor='k';
+strSlWDTH=0.1;
+nrSlWDTH=0.3;
+
+id1=find(IDX==4);
+id2=find(IDX==5);
+id=[id1;id2];
+% vortices idx is 3 and 6
+
+figure(401)
+hold on
+set(gca, 'FontSize', MyFontSize)
+scatter(data(id,1), data(id,2), 40, IDX(id), 'filled')
+%h=pcolor(Xres, Yres, reshape(IDX, xlen, ylen)');%, 'Interpolation', 'None')%, 'interpolation', 'off')
+set(h, 'EdgeColor', 'none')
+%contourf(Xres, Yres, reshape(IDX, xlen, ylen)',50,'Linestyle','None')
+xlabel('X')
+ylabel('Y')
+%title(['K-means clustering ']);
+hold on
+hlines =streamslice(Xres, Yres, Ures,Vres, nrSlWDTH);
+set(hlines,'LineWidth',strSlWDTH,'Color',strslColor)
+if(exampleID==1 || exampleID==3)
+    pl=patch(geometry,'FaceColor', [0.5,0.5,0.5], 'EdgeColor',[0.5,0.5,0.5],'faceAlpha',1,'HandleVisibility','off');
+    xlim([X(1) X(end)])
+    ylim([Y(1) Y(end)])
+
+end
+
+
+print([exampleName, 'vorticesOnly'],'-depsc')
