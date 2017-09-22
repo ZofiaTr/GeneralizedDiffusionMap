@@ -12,7 +12,7 @@ if(exist('Figures')==0)
 end
 
 % for experimental_data choose 1, for experimental_data_crossflowplane choose 2
-exampleID=5; 
+exampleID=3; 
 
 % create figure names according to the chosen data set
 if exampleID==1
@@ -225,7 +225,7 @@ if(exampleID==1 || exampleID==3)
     ylim([Y(1) Y(end)])
 
 end
-title(['EV ', num2str(ievidx(1))])
+title(['\psi_{', num2str(ievidx(1)-1), '}'], 'Fontsize', MyFontSize)
 xlabel('X')
 ylabel('Y')
 
@@ -240,7 +240,7 @@ if(exampleID==1 || exampleID==3)
     ylim([Y(1) Y(end)])
 
 end
-title(['EV ', num2str(ievidx(2))])
+title(['\psi_{', num2str(ievidx(2)-1), '}'], 'Fontsize', MyFontSize)
 xlabel('X')
 ylabel('Y')
 
@@ -255,7 +255,7 @@ if(exampleID==1 || exampleID==3)
     ylim([Y(1) Y(end)])
 
 end
-title(['EV ', num2str(ievidx(3))])
+title(['\psi_{', num2str(ievidx(3)-1), '}'], 'Fontsize', MyFontSize)
 xlabel('X')
 ylabel('Y')
 
@@ -272,7 +272,7 @@ if(exampleID==1 || exampleID==3)
     ylim([Y(1) Y(end)])
 
 end
-title(['EV ', num2str(ievidx(4))])
+title(['\psi_{', num2str(ievidx(4)-1), '}'], 'Fontsize', MyFontSize)
 xlabel('X')
 ylabel('Y')
 
