@@ -11,7 +11,22 @@ if(exist('Figures')==0)
 end
 
 % create figure names according to the chosen data set
-experimental_data;
+%% load data from G. Rossitto, C. Sicot, V. Ferrand, J. Bor ?ee, and F. Harambat. Influence of afterbody rounding on the pressure distribution over a fastback vehicle. Experiments in Fluids, 57(3):43, 2016.
+
+load('experimental _data.mat');
+
+%%
+figure(2)
+streamslice(Xres, Yres, Ures,Vres)
+set(gca, 'FontSize', 14)
+hold on
+rectangle('Position',[X(1) Y(1), 145 50], 'FaceColor', [1,1,1], 'EdgeColor',[1,1,1])
+xlim([X(1) X(end)])
+ylim([Y(1) Y(end)])
+print('Figures/CAR_streamplot','-depsc')
+
+
+%%
 exampleName='Figures/CAR_FLOW_';
 epsilon=2.0;
 beta=0.5;
@@ -49,7 +64,6 @@ title(['Eigenvectors 2-5 ']);
 subplot(221)
 hold on
 scatter(data(:,1), data(:,2), 5, evec(:,2))
-pl=patch(geometry,'FaceColor', [0.5,0.5,0.5], 'EdgeColor',[0.5,0.5,0.5],'faceAlpha',1,'HandleVisibility','off');
 xlim([X(1) X(end)])
 ylim([Y(1) Y(end)])
 
@@ -57,13 +71,13 @@ ylim([Y(1) Y(end)])
 subplot(222)
 scatter(data(:,1), data(:,2), 5, evec(:,3))
 
-pl=patch(geometry,'FaceColor', [0.5,0.5,0.5], 'EdgeColor',[0.5,0.5,0.5],'faceAlpha',1,'HandleVisibility','off');
+ 
 xlim([X(1) X(end)])
 ylim([Y(1) Y(end)])
 
 subplot(223)
 scatter(data(:,1), data(:,2), 5, evec(:,4))
-pl=patch(geometry,'FaceColor', [0.5,0.5,0.5], 'EdgeColor',[0.5,0.5,0.5],'faceAlpha',1,'HandleVisibility','off');
+ 
 xlim([X(1) X(end)])
 ylim([Y(1) Y(end)])
 
@@ -73,7 +87,7 @@ scatter(data(:,1), data(:,2), 5, evec(:,5))
 xlabel('X')
 ylabel('Y')
 hold on
-pl=patch(geometry,'FaceColor', [0.5,0.5,0.5], 'EdgeColor',[0.5,0.5,0.5],'faceAlpha',1,'HandleVisibility','off');
+ 
 xlim([X(1) X(end)])
 ylim([Y(1) Y(end)])
 
@@ -86,7 +100,7 @@ subplot(221)
 hold on
 scatter(data(:,1), data(:,2), 5, evec(:,6))
 
-pl=patch(geometry,'FaceColor', [0.5,0.5,0.5], 'EdgeColor',[0.5,0.5,0.5],'faceAlpha',1,'HandleVisibility','off');
+ 
 xlim([X(1) X(end)])
 ylim([Y(1) Y(end)])
 
@@ -94,7 +108,7 @@ ylim([Y(1) Y(end)])
 subplot(222)
 scatter(data(:,1), data(:,2), 5, evec(:,7))
 
-pl=patch(geometry,'FaceColor', [0.5,0.5,0.5], 'EdgeColor',[0.5,0.5,0.5],'faceAlpha',1,'HandleVisibility','off');
+ 
 xlim([X(1) X(end)])
 ylim([Y(1) Y(end)])
 
@@ -102,7 +116,7 @@ ylim([Y(1) Y(end)])
 subplot(223)
 scatter(data(:,1), data(:,2), 5, evec(:,8))
 
-pl=patch(geometry,'FaceColor', [0.5,0.5,0.5], 'EdgeColor',[0.5,0.5,0.5],'faceAlpha',1,'HandleVisibility','off');
+ 
 xlim([X(1) X(end)])
 ylim([Y(1) Y(end)])
 
@@ -112,7 +126,7 @@ scatter(data(:,1), data(:,2), 5, evec(:,9))
 xlabel('X')
 ylabel('Y')
 
-pl=patch(geometry,'FaceColor', [0.5,0.5,0.5], 'EdgeColor',[0.5,0.5,0.5],'faceAlpha',1,'HandleVisibility','off');
+ 
 xlim([X(1) X(end)])
 ylim([Y(1) Y(end)])
 
@@ -126,7 +140,7 @@ subplot(221)
 hold on
 scatter(data(:,1), data(:,2), 5, evec(:,10))
 
-pl=patch(geometry,'FaceColor', [0.5,0.5,0.5], 'EdgeColor',[0.5,0.5,0.5],'faceAlpha',1,'HandleVisibility','off');
+ 
 xlim([X(1) X(end)])
 ylim([Y(1) Y(end)])
 
@@ -134,7 +148,7 @@ ylim([Y(1) Y(end)])
 subplot(222)
 scatter(data(:,1), data(:,2), 5, evec(:,11))
 
-pl=patch(geometry,'FaceColor', [0.5,0.5,0.5], 'EdgeColor',[0.5,0.5,0.5],'faceAlpha',1,'HandleVisibility','off');
+ 
 xlim([X(1) X(end)])
 ylim([Y(1) Y(end)])
 
@@ -142,7 +156,7 @@ ylim([Y(1) Y(end)])
 subplot(223)
 scatter(data(:,1), data(:,2), 5, evec(:,12))
 
-pl=patch(geometry,'FaceColor', [0.5,0.5,0.5], 'EdgeColor',[0.5,0.5,0.5],'faceAlpha',1,'HandleVisibility','off');
+ 
 xlim([X(1) X(end)])
 ylim([Y(1) Y(end)])
 
@@ -152,7 +166,7 @@ scatter(data(:,1), data(:,2), 5, evec(:,13))
 xlabel('X')
 ylabel('Y')
 
-pl=patch(geometry,'FaceColor', [0.5,0.5,0.5], 'EdgeColor',[0.5,0.5,0.5],'faceAlpha',1,'HandleVisibility','off');
+ 
 xlim([X(1) X(end)])
 ylim([Y(1) Y(end)])
 
@@ -179,7 +193,7 @@ hlines =streamslice(Xres, Yres, Ures,Vres, nrSlWDTH);
 set(hlines,'LineWidth',strSlWDTH,'Color',strslColor)
 hold on
 
-pl=patch(geometry,'FaceColor', [0.5,0.5,0.5], 'EdgeColor',[0.5,0.5,0.5],'faceAlpha',1,'HandleVisibility','off');
+ 
 xlim([X(1) X(end)])
 ylim([Y(1) Y(end)])
 
@@ -194,7 +208,7 @@ hold on
 hlines =streamslice(Xres, Yres, Ures,Vres, nrSlWDTH);
 set(hlines,'LineWidth',strSlWDTH,'Color',strslColor)
 
-pl=patch(geometry,'FaceColor', [0.5,0.5,0.5], 'EdgeColor',[0.5,0.5,0.5],'faceAlpha',1,'HandleVisibility','off');
+ 
 xlim([X(1) X(end)])
 ylim([Y(1) Y(end)])
 
@@ -209,7 +223,7 @@ hold on
 hlines =streamslice(Xres, Yres, Ures,Vres, nrSlWDTH);
 set(hlines,'LineWidth',strSlWDTH,'Color',strslColor)
 
-pl=patch(geometry,'FaceColor', [0.5,0.5,0.5], 'EdgeColor',[0.5,0.5,0.5],'faceAlpha',1,'HandleVisibility','off');
+ 
 xlim([X(1) X(end)])
 ylim([Y(1) Y(end)])
 
@@ -226,7 +240,7 @@ hlines =streamslice(Xres, Yres, Ures,Vres, nrSlWDTH);
 set(hlines,'LineWidth',strSlWDTH,'Color',strslColor)
 hold on
 
-pl=patch(geometry,'FaceColor', [0.5,0.5,0.5], 'EdgeColor',[0.5,0.5,0.5],'faceAlpha',1,'HandleVisibility','off');
+ 
 xlim([X(1) X(end)])
 ylim([Y(1) Y(end)])
 
@@ -265,7 +279,7 @@ hold on
 hlines =streamslice(Xres, Yres, Ures,Vres, nrSlWDTH);
 set(hlines,'LineWidth',strSlWDTH,'Color',strslColor)
 
-pl=patch(geometry,'FaceColor', [0.5,0.5,0.5], 'EdgeColor',[0.5,0.5,0.5],'faceAlpha',1,'HandleVisibility','off');
+ 
 xlim([X(1) X(end)])
 ylim([Y(1) Y(end)])
 
@@ -289,7 +303,7 @@ hold on
 streamslice(Xres, Yres, Ures,Vres)
 hold on
 
-pl=patch(geometry,'FaceColor', [0.5,0.5,0.5], 'EdgeColor',[0.5,0.5,0.5],'faceAlpha',1,'HandleVisibility','off');
+ 
 xlim([X(1) X(end)])
 ylim([Y(1) Y(end)])
 
